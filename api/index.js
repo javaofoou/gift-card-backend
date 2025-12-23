@@ -1,9 +1,7 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const serverless = require("serverless-http");
-const connectDB = require("../lib/db"); // keep if you need connectDB
-require("dotenv").config();
+const connectDB = require("../lib/db");
 
 const userRoutes = require("../routes/user");
 const adminRoutes = require("../routes/admin");
@@ -17,27 +15,14 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Connect MongoDB (ONLY THIS — no mongoose.connect here)
+connectDB(process.env.MONGO_URL);
+
 // Routes
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);
 
-const mongoUri = process.env.MONGO_URL;
-
-if (!mongoUri) {
-  console.error("Error: MONGO_URI is not defined!");
-  process.exit(1); // stop server
-}
-
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error(err));
-
-// Optional helper DB connection
-connectDB(process.env.MONGO_URI);
-
-
-
-// EXPORT — DO NOT LISTEN
+// Export for Vercel
 module.exports = serverless(app);
+
 
