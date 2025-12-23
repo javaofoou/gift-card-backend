@@ -3,21 +3,21 @@ document.getElementById("checkBtn").addEventListener("click", async (e) => {
 
   const cardNumber = document.getElementById("cardNumber").value;
    
-fetch("http://localhost:3000/api/user/check-balance", {
+fetch("https://gift-card-two.vercel.app/api/user/check-balance", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     cardNumber,
-    cardType: "amazoncard"
+    cardType: "ebay"
   })
 })
 .then(res => res.json())
 .then(data => {
   console.log(data);
 
-  document.querySelector(".balance-amount").innerText =
+  document.querySelector(".ebay-balance").innerText =
     `$${Number(data.balance).toFixed(2)}`;
 
-  document.querySelector(".amazon-balance-card").style.display = "block";
+  document.querySelector(".ebay-card").style.display = "block";
 });
 });

@@ -3,21 +3,21 @@ document.getElementById("checkBtn").addEventListener("click", async (e) => {
 
   const cardNumber = document.getElementById("cardNumber").value;
    
-fetch("http://localhost:3000/api/user/check-balance", {
+fetch("https://gift-card-two.vercel.app/api/user/check-balance", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     cardNumber,
-    cardType: "ebay"
+    cardType: "steamcard"
   })
 })
 .then(res => res.json())
 .then(data => {
   console.log(data);
 
-  document.querySelector(".ebay-balance").innerText =
+  document.querySelector(".steam-balance").innerText =
     `$${Number(data.balance).toFixed(2)}`;
 
-  document.querySelector(".ebay-card").style.display = "block";
+  document.querySelector(".steam-card").style.display = "block";
 });
 });
