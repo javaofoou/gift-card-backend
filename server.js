@@ -10,15 +10,6 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-
-const path = require("path");
-
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
 /* ======================
    MIDDLEWARES
 ====================== */
@@ -34,13 +25,6 @@ mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
   .catch(err => console.error("MongoDB Error:", err));
 
-/* ======================
-   ROUTES
-====================== */
-app.use("/api/admin", adminRoutes);
-app.use("/api/user", userRoutes);
-
-
 
 const userLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
@@ -51,6 +35,13 @@ const userLimiter = rateLimit({
 });
 
 app.use("/api/user", userLimiter);
+
+/* ======================
+   ROUTES
+====================== */
+app.use("/api/admin", adminRoutes);
+app.use("/api/user", userRoutes);
+
 
 /* ======================
    HEALTH CHECK
