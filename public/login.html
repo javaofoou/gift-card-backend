@@ -103,13 +103,6 @@ button:hover {
 <script>
 // admin/script.js
 
-<<<<<<< HEAD:login.html
-const API_BASE = "https://gift-card-two.vercel.app/api/";
-
-=======
-const API_BASE = "https://gift-card-two.vercel.app/api";
->>>>>>> 6e6edeacdc38fb5179fe7a2cb777450baa36e6a8:public/login.html
-
 // LOGIN
 document.querySelector("button")?.addEventListener("click", async () => {
   const email = document.getElementById("email").value;
@@ -117,7 +110,7 @@ document.querySelector("button")?.addEventListener("click", async () => {
   const msg = document.getElementById("loginMsg");
 
   try {
-    const res = await fetch(`${API_BASE}/admin/login`, {
+    const res = await fetch("http://localhost:3000/api/admin/login",{
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
