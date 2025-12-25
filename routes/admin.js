@@ -65,6 +65,23 @@ router.put("/cards/:id", adminAuth,async (req, res) => {
   }
 });
 
+// Delete individual card
+router.delete("/cards/:id", adminAuth, async (req, res) => {
+  try {
+    const card = await GiftCard.findByIdAndDelete(req.params.id);
+
+    if (!card) {
+      return res.status(404).json({ message: "Card not found" });
+    }
+
+    res.json({ message: "Card deleted successfully", card });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+
 // Update default balance
 router.put("/settings/default-balance", adminAuth, async (req, res) => {
   const { defaultBalance } = req.body;
