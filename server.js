@@ -15,7 +15,12 @@ const app = express();
 ====================== */
 
 // 🔥 REQUIRED MIDDLEWARE
-app.use(cors());
+app.use(cors({
+  origin: "https://gift-card-two.vercel.app/",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json()); // <-- THIS WAS MISSING
 app.use(express.urlencoded({ extended: true }));
 /* ======================
